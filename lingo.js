@@ -8,6 +8,7 @@ var user_input= "";
 var user_arr = user_input.split("");
 
 var game = 0;
+var score = 0;
 
 (function(){
 document.getElementById('1').innerHTML = word_arr[0];
@@ -21,7 +22,7 @@ document.getElementById('5').innerHTML = word_arr[0];
 function check() {
 	var antwoord = document.getElementById("field").value;
 	if (antwoord.length != 5) {
-		alert("fout!");
+		alert("Voer minimaal een vijf letterwoord in!");
 	}
 
 	var antwoordString = "";
@@ -42,6 +43,12 @@ function check() {
 			if (user_arr[i] == word_arr[j] && j == i) {
 				if(temp['letter_' + i] != 'green'){
 					temp['letter_' + i] = 'green';
+				}
+				score = score + 1;
+				if(score == 5)
+				{
+					score = 0;
+					alert("Gefeliciteerd, je hebt gewonnen!")
 				}
 				// letter en positie goed (groen)
 				console.log(user_arr[i] + " is gelijk aan " + word_arr[j]);
