@@ -6,9 +6,10 @@ var word_arr = word.split("");
 
 var user_input= "";
 var user_arr = user_input.split("");
-
 var game = 0;
 var score = 0;
+var gameFinish = false;
+var tries = 0;
 
 (function(){
 document.getElementById('1').innerHTML = word_arr[0];
@@ -20,55 +21,70 @@ document.getElementById('5').innerHTML = word_arr[0];
 })();
 
 function check() {
-	var antwoord = document.getElementById("field").value;
-	if (antwoord.length != 5) {
-		alert("Voer minimaal een vijf letterwoord in!");
+	if(tries == 5)
+	{
+		gameFinish = true;
+	}
+	if(gameFinish == true)
+	{
+		newGame();
 	}
 
-	var antwoordString = "";
+	if(gameFinish == false & tries < 5)
+	{
+		tries = tries + 1;
+		score = 0;
+		var antwoord = document.getElementById("field").value;
+		if (antwoord.length != 5) {
+			alert("Voer minimaal een vijf letterwoord in!");
+		}	
+
+		var antwoordString = "";
 
 
-	var temp = {
+		var temp = {
 		
 
-	};
+		};
 
-	var user_arr = antwoord.split(""); 
+		var user_arr = antwoord.split(""); 
 
-	for (var i = 0; i < user_arr.length; i++) {  //letter 1ste woord (0)
-		for (var j = 0; j<word_arr.length; j++) { //letter tweede woord
+		for (var i = 0; i < user_arr.length; i++) {  //letter 1ste woord (0)
+			for (var j = 0; j<word_arr.length; j++) { //letter tweede woord
 
-			var check = "";
+				var check = "";	
 
-			if (user_arr[i] == word_arr[j] && j == i) {
-				if(temp['letter_' + i] != 'green'){
-					temp['letter_' + i] = 'green';
-				}
-				score = score + 1;
-				if(score == 5)
-				{
-					score = 0;
-					alert("Gefeliciteerd, je hebt gewonnen!")
-				}
-				// letter en positie goed (groen)
-				console.log(user_arr[i] + " is gelijk aan " + word_arr[j]);
-				//antwoordString += "<span style='color: green'>" + user_arr[i] + "</span>";
+
+				if (user_arr[i] == word_arr[j] && j == i) {
+					if(temp['letter_' + i] != 'green'){
+						temp['letter_' + i] = 'green';
+					}
+					score = score + 1;
+					if(score == 5){
+						score = 0;
+						gameFinish = true;
+						alert("Gefeliciteerd, je hebt gewonnen! Klik op New Game om verder te gaan!")
+					}
+					// letter en positie goed (groen)
+					console.log(user_arr[i] + " is gelijk aan " + word_arr[j]);
+					//antwoordString += "<span style='color: green'>" + user_arr[i] + "</span>";
 				
 
-			} else if (user_arr[i] == word_arr[j] && i != j) {
-				//enkel letter goed (geel)
-				console.log(user_arr[i] + " staat in het woord.");
-				//antwoordString += "<span style='color: orange'>" + user_arr[i] + "</span>";
-				if(temp['letter_' + i] != 'green'){
-					temp['letter_' + i] = 'orange';
-				}
+				} else if (user_arr[i] == word_arr[j] && i != j) {
+					//enkel letter goed (geel)
+					console.log(user_arr[i] + " staat in het woord.");
+					//antwoordString += "<span style='color: orange'>" + user_arr[i] + "</span>";
+					if(temp['letter_' + i] != 'green'){
+						temp['letter_' + i] = 'orange';
+					}
 				
-			} else if (!user_arr.includes(word_arr[j]) && i == j){
-				//antwoordString += "<span style='color: red'>" + user_arr[i] + "</span>";
-				//foute letter (rood)
-				console.log(user_arr[i] + " staat niet in het woord.");
-				if( temp['letter_' + i] != 'green'){
-					temp['letter_' + i] = 'red';
+				} else if (!user_arr.includes(word_arr[j]) && i == j){
+					//antwoordString += "<span style='color: red'>" + user_arr[i] + "</span>";
+					//foute letter (rood)
+					console.log(user_arr[i] + " staat niet in het woord.");
+					if( temp['letter_' + i] != 'green'){
+						temp['letter_' + i] = 'red';
+					}
 				}
 			}
 		}
@@ -103,4 +119,8 @@ function check() {
 		var opt5 = document.getElementById('5');
 		opt5.innerHTML = antwoordString; game++;
 	} 
+}
+function newGame()
+{
+	window.location.reload()
 }
