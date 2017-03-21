@@ -17,7 +17,6 @@ document.getElementById('2').innerHTML = word_arr[0];
 document.getElementById('3').innerHTML = word_arr[0];
 document.getElementById('4').innerHTML = word_arr[0];
 document.getElementById('5').innerHTML = word_arr[0];
-
 })();
 
 function check() {
@@ -25,15 +24,14 @@ function check() {
 	{
 		gameFinish = true;
 	}
-	if(gameFinish == true)
-	{
+	if(gameFinish == true){
 		newGame();
 	}
 
-	if(gameFinish == false & tries < 5)
-	{
+	if(gameFinish == false & tries < 5){
 		tries = tries + 1;
 		score = 0;
+
 		var antwoord = document.getElementById("field").value;
 		if (antwoord.length != 5) {
 			alert("Voer minimaal een vijf letterwoord in!");
@@ -63,7 +61,8 @@ function check() {
 					if(score == 5){
 						score = 0;
 						gameFinish = true;
-						alert("Gefeliciteerd, je hebt gewonnen! Klik op New Game om verder te gaan!")
+						alert("Gefeliciteerd, je hebt gewonnen!")
+						window.location.reload()
 					}
 					// letter en positie goed (groen)
 					console.log(user_arr[i] + " is gelijk aan " + word_arr[j]);
@@ -120,7 +119,7 @@ function check() {
 		opt5.innerHTML = antwoordString; game++;
 	} 
 }
-function newGame()
-{
-	window.location.reload()
-}
+
+function newGame(){
+		window.location.reload()
+	}
